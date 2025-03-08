@@ -3,7 +3,7 @@ import mediapipe as mp
 import os
 import csv
 
-
+# Configuración
 CARPETA_DATASET = "LESSA_Dataset"     
 MAX_FRAMES_ESTATICA = 150            
 FRAMES_MINIMOS_INICIO = 4            
@@ -70,7 +70,7 @@ with mp_holistic.Holistic(min_detection_confidence=MIN_DETECCION_CONFIANZA,
 
     escritor_csv = csv.writer(csvfile)
     
-   
+
     encabezados = []
     for i in range(33):  
         encabezados += [f"cuerpo_{i}_x", f"cuerpo_{i}_y", f"cuerpo_{i}_z"]
@@ -96,6 +96,14 @@ with mp_holistic.Holistic(min_detection_confidence=MIN_DETECCION_CONFIANZA,
         imagen_bgr = cv2.cvtColor(imagen_rgb, cv2.COLOR_RGB2BGR)  
 
         
+        if resultados.pose_landmarks:
+            mp_dibujo.draw_landmarks(imagen_bgr, resultados.pose_landmarks, mp_holistic.POSE_CONNECTIONS)
+        if resultados.left_hand_landmarks:
+            mp_dibujo.draw_landmarks(imagen_bgr, resultados.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
+        if resultados.right_hand_landmarks:
+            mp_dibujo.draw_landmarks(imagen_bgr, resultados.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
+
+        
         manos_detectadas = resultados.left_hand_landmarks or resultados.right_hand_landmarks
 
         if manos_detectadas:
@@ -105,12 +113,12 @@ with mp_holistic.Holistic(min_detection_confidence=MIN_DETECCION_CONFIANZA,
             frames_con_manos = 0
             frames_sin_manos += 1
 
-       
+        
         if not capturando and frames_con_manos >= FRAMES_MINIMOS_INICIO:
             capturando = True
             print(">> Manos detectadas de forma estable: iniciando captura...\n")
 
-     
+      
         if capturando and frames_sin_manos >= FRAMES_MINIMOS_FINAL:
             print(">> Manos no detectadas durante un tiempo prolongado: finalizando captura.\n")
             break
@@ -148,8 +156,16 @@ with mp_holistic.Holistic(min_detection_confidence=MIN_DETECCION_CONFIANZA,
                 print(f">> Se alcanzó el máximo de {MAX_FRAMES_ESTATICA} frames. Captura detenida.\n")
                 break
 
+        
+        cv2.putText(imagen_bgr, "Grabando" if capturando else "Esperando manos...",
+                    (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+        cv2.imshow("Captura de Señas", imagen_bgr)
+
+        if cv2.waitKey(1) & 0xFF == 27:
+            print(">> Captura interrumpida por el usuario.\n")
+            break
+
 
 cap.release()
-if MOSTRAR_VIDEO:
-    cv2.destroyAllWindows()
+cv2.destroyAllWindows()
 print(f"\nCaptura completada. {contador_frames} frames guardados en '{carpeta_intento}'.\n")
