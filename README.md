@@ -8,6 +8,8 @@ El proyecto trata de reconocer el lenguaje de señas salvadoreño (LESSA) e inte
 
 El programa captura en tiempo real fram a frame de la cámara y por medio de la dataset compara los que ve devolviendo en palabras la seña que analiza.
 
+![image alt](https://github.com/Alexander1251/RedNeuronalLenguajeSe-as/blob/main/video_eurose%C3%B1as.gif?raw=true)
+
 * Arquitectura del proyecto + imagen
 
 Creación del Dataset:
@@ -24,10 +26,13 @@ Para entrenar el modelo se utiliza redes neuronales convolucionales (CNN) para d
 
 Por medio de mediapipe se procesa en tiempo real las 126 características, en caso de solo haber una mano se rrellena con 0 a la mano que no se detecta o ambas si se llega a no mostrar ninguna y espera a detectar alguna. Normaliza los datos con los mismos valores que el procesado
 
+![image alt](https://github.com/Alexander1251/RedNeuronalLenguajeSe-as/blob/main/entrenamiento_CNN_neurose%C3%B1a.jpg?raw=true)
 
 Modelo trabajando:
 
 El modelo CNN va detectando frame a frame al momento, comparando en base al ajuste de pesos que se realizó en el entrenamiento, muestra una predicción con un alto índice de confianza.
+
+![iage alt](https://github.com/Alexander1251/RedNeuronalLenguajeSe-as/blob/main/Diagrama_funcionando_modelo_neurose%C3%B1as.jpg?raw=true)
 
 * Proceso de desarrollo:
 
