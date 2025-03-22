@@ -16,7 +16,7 @@ Para crear la base de datos se tiene un script por medio de opencv toma un video
 
 Para procesar los datos se utiliza mediapipe para leer los puntos de la posición de cada mano, toma 21 características por mano, 3 coordenadas por característica, en la misma se normaliza los datos entre -1 a 1
 
-
+![image alt](https://github.com/Alexander1251/RedNeuronalLenguajeSe-as/blob/main/creaci%C3%B3n_dataset_neurose%C3%B1a.jpg?raw=true)
 
 Entrenamiento del modelo:
 
