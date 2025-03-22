@@ -61,7 +61,8 @@ El modelo reconoce las señas basados en los puntos de la mano tomados en tiempo
 * Tecnología/Herramientas usadas 
 
 Para elaborar el Dataset:
-- Python 3 
+- Python 3
+- Numpy (Almacenar y leer datos)
 - Pandas (Limpieza de datos)
 - Scikitlearning (Normalizacion de los datos)
 - Mediapipe (Analisis de la posicion de las manos)
